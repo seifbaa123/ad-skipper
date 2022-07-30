@@ -16,4 +16,9 @@ setInterval(() => {
   } else {
     blackBox.remove()
   }
+
+  const ad = document.getElementById("action-companion-click-target")
+  if(ad) {
+    ad.remove()
+  }
 }, 1000)
