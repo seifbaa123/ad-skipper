@@ -25,9 +25,14 @@ setInterval(() => {
 
     blackBox.remove()
   }
-
+   
   const ad = document.getElementById("action-companion-click-target")
   if(ad) {
     ad.remove()
+  }
+
+  const otherAd = document.querySelector(".ytd-promoted-sparkles-web-renderer")
+  if(ad) {
+      otherAd.remove()
   }
 }, 1000)
