@@ -32,7 +32,12 @@ setInterval(() => {
   }
 
   const otherAd = document.querySelector(".ytd-promoted-sparkles-web-renderer")
-  if(ad) {
+  if(otherAd) {
       otherAd.remove()
+  }
+
+  const searchAd = document.querySelector(".ytd-search-pyv-renderer")
+  if(searchAd) {
+    searchAd.remove()
   }
 }, 1000)
