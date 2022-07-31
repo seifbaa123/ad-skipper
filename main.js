@@ -10,10 +10,19 @@ setInterval(() => {
     adSkipButton.click()
   }
 
+  const muteSound = document.querySelector(".ytp-mute-button")
   const adPreview = document.querySelector(".ytp-ad-preview-container")
   if(adPreview != null) {
+    if(muteSound.getAttribute("title") === "Mute (m)") {
+      muteSound.click()
+    }
+
     document.body.appendChild(blackBox)    
   } else {
+    if(muteSound.getAttribute("title") === "Unmute (m)") {
+      muteSound.click()
+    }
+
     blackBox.remove()
   }
 
