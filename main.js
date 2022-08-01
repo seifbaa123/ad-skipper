@@ -40,4 +40,9 @@ setInterval(() => {
   if(searchAd) {
     searchAd.remove()
   }
+
+  const adOverlayCloseButton = document.querySelector(".ytp-ad-overlay-close-button")
+  if(adOverlayCloseButton) {
+    adOverlayCloseButton.remove()
+  }
 }, 1000)
