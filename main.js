@@ -1,10 +1,20 @@
+// create black box
 const blackBox = document.createElement("div")
 blackBox.style = "position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #000; z-index: 1000"
 
 const randomID = `black-box-random-id-${Math.floor(Math.random() * 10000)}`
 blackBox.setAttribute("id", randomID)
 
-setInterval(() => {
+// handle home page ads
+function homePage() {
+  const homePageAd = document.querySelector(".ytd-ad-slot-renderer")
+  if(homePageAd) {
+    homePageAd.remove()
+  }
+}
+
+// handle watch page ads
+function watchPage() {
   const adSkipButton = document.querySelector(".ytp-ad-skip-button-container")
   if(adSkipButton != null) {
     adSkipButton.click()
@@ -36,13 +46,31 @@ setInterval(() => {
       otherAd.remove()
   }
 
+  const adOverlayCloseButton = document.querySelector(".ytp-ad-overlay-close-button")
+  if(adOverlayCloseButton) {
+    adOverlayCloseButton.click()
+  }
+}
+
+// handle search page ads
+function searchPage() {
   const searchAd = document.querySelector(".ytd-search-pyv-renderer")
   if(searchAd) {
     searchAd.remove()
   }
+}
 
-  const adOverlayCloseButton = document.querySelector(".ytp-ad-overlay-close-button")
-  if(adOverlayCloseButton) {
-    adOverlayCloseButton.click()
+// set the interval
+setInterval(async () => {
+  if(location.pathname === "/") {
+    homePage()
+  }
+
+  else if(location.pathname.startsWith("/results")) {
+    searchPage()
+  }
+  
+  else if(location.pathname.startsWith("/watch")) {
+    watchPage()
   }
 }, 1000)
