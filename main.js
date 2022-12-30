@@ -11,28 +11,34 @@ function homePage() {
   if(homePageAd) {
     homePageAd.remove()
   }
+
+  const mastheadAd = document.getElementById("masthead-ad")
+  if(mastheadAd) {
+	homePageAd.remove()
+  }
 }
 
 // handle watch page ads
+let oldVideoVolume
 function watchPage() {
   const adSkipButton = document.querySelector(".ytp-ad-skip-button-container")
   if(adSkipButton != null) {
     adSkipButton.click()
   }
 
-  const muteSound = document.querySelector(".ytp-mute-button")
+  const video = document.querySelector("video")
   const adPreview = document.querySelector(".ytp-ad-preview-container")
   if(adPreview != null) {
-    if(muteSound.getAttribute("title") === "Mute (m)") {
-      muteSound.click()
+    if(oldVideoVolume === undefined) {
+        oldVideoVolume = video.volume
+        video.volume = 0
     }
-
     document.body.appendChild(blackBox)    
   } else {
-    if(muteSound.getAttribute("title") === "Unmute (m)") {
-      muteSound.click()
+    if(oldVideoVolume !== undefined) {
+        video.volume = oldVideoVolume
+        oldVideoVolume = undefined
     }
-
     blackBox.remove()
   }
    
