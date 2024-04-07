@@ -7,76 +7,100 @@ blackBox.setAttribute("id", randomID)
 
 // handle home page ads
 function homePage() {
-  const homePageAd = document.querySelector(".ytd-ad-slot-renderer")
-  if(homePageAd) {
-    homePageAd.remove()
-  }
+    const statementBanner = document.querySelector("ytd-statement-banner-renderer")
+    if (statementBanner) {
+        statementBanner.remove()
+    }
 
-  const mastheadAd = document.getElementById("masthead-ad")
-  if(mastheadAd) {
-	homePageAd.remove()
-  }
+    const homePageAd = document.querySelector(".ytd-ad-slot-renderer")
+    if (homePageAd) {
+        homePageAd.remove()
+    }
+
+    const mastheadAd = document.getElementById("masthead-ad")
+    if (mastheadAd) {
+        mastheadAd.remove()
+    }
 }
 
 // handle watch page ads
-let oldVideoVolume
+// let oldVideoVolume
+// let blackBoxHasBeenAppended = false
 function watchPage() {
-  const adSkipButton = document.querySelector(".ytp-ad-skip-button-container")
-  if(adSkipButton != null) {
-    adSkipButton.click()
-  }
-
-  const video = document.querySelector("video")
-  const adPreview = document.querySelector(".ytp-ad-preview-container")
-  if(adPreview != null) {
-    if(oldVideoVolume === undefined) {
-        oldVideoVolume = video.volume
-        video.volume = 0
+    const ytPremiumDismiss = document.querySelector("#dismiss-button")
+    if (ytPremiumDismiss) {
+        ytPremiumDismiss.click()
     }
-    document.body.appendChild(blackBox)    
-  } else {
-    if(oldVideoVolume !== undefined) {
-        video.volume = oldVideoVolume
-        oldVideoVolume = undefined
+
+    const previewAd = document.querySelector(".ytp-preview-ad")
+    const adPreviewContainer = document.querySelector(".ytp-ad-preview-container")
+    if (previewAd || adPreviewContainer) {
+        const adPlayer = document.querySelector('video.video-stream.html5-main-video')
+        if (adPlayer) {
+            adPlayer.currentTime = 900 //Set current video time to 15 Minutes
+        }
     }
-    blackBox.remove()
-  }
-   
-  const ad = document.getElementById("action-companion-click-target")
-  if(ad) {
-    ad.remove()
-  }
 
-  const otherAd = document.querySelector(".ytd-promoted-sparkles-web-renderer")
-  if(otherAd) {
-      otherAd.remove()
-  }
+    // const adSkipButton = document.querySelector(".ytp-ad-skip-button-container")
+    // if (adSkipButton != null) {
+    //   adSkipButton.click()
+    // }
 
-  const adOverlayCloseButton = document.querySelector(".ytp-ad-overlay-close-button")
-  if(adOverlayCloseButton) {
-    adOverlayCloseButton.click()
-  }
+    // const video = document.querySelector("video")
+    // if (adPreview != null) {
+    //   if (oldVideoVolume === undefined) {
+    //     oldVideoVolume = video.volume
+    //     video.volume = 0
+    //   }
+
+    //   if (!blackBoxHasBeenAppended) {
+    //     document.body.appendChild(blackBox)
+    //     blackBoxHasBeenAppended = true
+    //   }
+    // } else {
+    //   if (oldVideoVolume !== undefined) {
+    //     video.volume = oldVideoVolume
+    //     oldVideoVolume = undefined
+    //   }
+    //   blackBoxHasBeenAppended = false
+    //   blackBox.remove()
+    // }
+
+    const ad = document.getElementById("action-companion-click-target")
+    if (ad) {
+        ad.remove()
+    }
+
+    const otherAd = document.querySelector(".ytd-promoted-sparkles-web-renderer")
+    if (otherAd) {
+        otherAd.remove()
+    }
+
+    // const adOverlayCloseButton = document.querySelector(".ytp-ad-overlay-close-button")
+    // if (adOverlayCloseButton) {
+    //   adOverlayCloseButton.click()
+    // }
 }
 
 // handle search page ads
 function searchPage() {
-  const searchAd = document.querySelector(".ytd-search-pyv-renderer")
-  if(searchAd) {
-    searchAd.remove()
-  }
+    const searchAd = document.querySelector(".ytd-ad-slot-renderer")
+    if (searchAd) {
+        searchAd.remove()
+    }
 }
 
 // set the interval
 setInterval(async () => {
-  if(location.pathname === "/") {
-    homePage()
-  }
+    if (location.pathname === "/") {
+        homePage()
+    }
 
-  else if(location.pathname.startsWith("/results")) {
-    searchPage()
-  }
-  
-  else if(location.pathname.startsWith("/watch")) {
-    watchPage()
-  }
+    else if (location.pathname.startsWith("/results")) {
+        searchPage()
+    }
+
+    else if (location.pathname.startsWith("/watch")) {
+        watchPage()
+    }
 }, 1000)
